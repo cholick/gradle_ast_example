@@ -1,6 +1,7 @@
 package com.cholick.ast
 
 import org.codehaus.groovy.ast.ASTNode
+import org.codehaus.groovy.ast.AnnotationNode
 import org.codehaus.groovy.ast.ClassNode
 import org.codehaus.groovy.ast.MethodNode
 import org.codehaus.groovy.ast.builder.AstBuilder
@@ -13,6 +14,12 @@ import org.codehaus.groovy.transform.GroovyASTTransformation
 class Transform implements ASTTransformation {
 
     void visit(ASTNode[] astNodes, SourceUnit sourceUnit) {
+        if (!astNodes) return
+        if (!astNodes[0]) return
+        if (!astNodes[1]) return
+        if (!(astNodes[0] instanceof AnnotationNode)) return
+        if (astNodes[0].classNode?.name != Marker.class.name) return
+
         ClassNode annotatedClass = (ClassNode) astNodes[1]
         MethodNode newMethod = makeMethod(annotatedClass)
         annotatedClass.addMethod(newMethod)

@@ -1,0 +1,13 @@
+**.DS_Store
+*~
+
+#IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea
+build
+
+#Gradle
+out
+.gradle

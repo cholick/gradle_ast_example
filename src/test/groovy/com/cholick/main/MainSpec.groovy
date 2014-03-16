@@ -1,4 +1,4 @@
-package com.cholick.ast
+package com.cholick.main
 
 import com.cholick.main.Main
 import spock.lang.Specification

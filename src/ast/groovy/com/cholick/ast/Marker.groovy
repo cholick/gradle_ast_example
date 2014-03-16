@@ -9,6 +9,5 @@ import java.lang.annotation.Target
 
 @Retention(RetentionPolicy.SOURCE)
 @Target([ElementType.TYPE])
-@GroovyASTTransformationClass(["com.cholick.ast.Transform"])
-public @interface Marker {
-}
+@GroovyASTTransformationClass(['com.cholick.ast.Transform'])
+public @interface Marker {}

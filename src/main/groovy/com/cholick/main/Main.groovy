@@ -1,4 +1,6 @@
-package com.cholick.ast
+package com.cholick.main
+
+import com.cholick.ast.Marker
 
 @Marker
 class Main {
@@ -9,7 +11,9 @@ class Main {
 
     def run() {
         println 'Running main'
+
         assert this.class.declaredMethods.find { it.name == 'added' }
+        added()
     }
 
 }

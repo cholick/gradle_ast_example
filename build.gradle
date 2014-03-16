@@ -1,6 +1,7 @@
+apply plugin: 'application'
 apply plugin: 'groovy'
 apply plugin: 'idea'
-apply plugin: 'application'
+apply plugin: 'project-report'
 
 repositories {
     mavenCentral()
@@ -12,4 +13,30 @@ dependencies {
     testCompile('org.spockframework:spock-core:0.7-groovy-2.0')
 }
 
-mainClassName = 'com.cholick.ast.Main'
+sourceSets {
+    ast {
+        groovy {
+            srcDirs = ['src/ast/groovy']
+        }
+    }
+}
+
+idea {
+    project {
+        jdkName '1.7'
+        languageLevel '1.7'
+    }
+    module {
+        sourceDirs += file('src/ast/groovy')
+    }
+}
+
+task compileAst(type: GroovyCompile) {
+    source = sourceSets.ast.allGroovy
+    destinationDir = compileGroovy.destinationDir
+    classpath = compileGroovy.classpath
+}
+
+compileGroovy.dependsOn compileAst
+
+mainClassName = 'com.cholick.main.Main'

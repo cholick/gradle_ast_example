@@ -20,7 +20,7 @@ class Transform implements ASTTransformation {
 
     MethodNode makeMethod(ClassNode source) {
         def ast = new AstBuilder().buildFromString(CompilePhase.INSTRUCTION_SELECTION, false,
-                "def added() { println 'added' }"
+                "def added() { println 'Added' }"
         )
         return (MethodNode) ast[1].methods.find { it.name == 'added' }
     }

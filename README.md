@@ -1,3 +1,3 @@
-gradle_ast
-==========
-Small project attempting to get Gradle to apply a local AST transformation.
+### gradle_ast
+
+Example Gradle project showing building and applying local ast transformations.

@@ -9,6 +9,8 @@ dependencies {
     compile('org.codehaus.groovy:groovy-all:2.2.1')
     compile(project(':ast'))
 
+    compile('org.apache.commons:commons-math3:3.2')
+
     testCompile('org.spockframework:spock-core:0.7-groovy-2.0')
 }
 

@@ -14,20 +14,29 @@ import org.codehaus.groovy.transform.GroovyASTTransformation
 class Transform implements ASTTransformation {
 
     void visit(ASTNode[] astNodes, SourceUnit sourceUnit) {
-        if (!astNodes) return
-        if (!astNodes[0]) return
-        if (!astNodes[1]) return
-        if (!(astNodes[0] instanceof AnnotationNode)) return
-        if (astNodes[0].classNode?.name != Marker.class.name) return
+        try {
+            if (!astNodes) return
+            if (!astNodes[0]) return
+            if (!astNodes[1]) return
+            if (!(astNodes[0] instanceof AnnotationNode)) return
+            if (astNodes[0].classNode?.name != Marker.class.name) return
 
-        ClassNode annotatedClass = (ClassNode) astNodes[1]
-        MethodNode newMethod = makeMethod(annotatedClass)
-        annotatedClass.addMethod(newMethod)
+            ClassNode annotatedClass = (ClassNode) astNodes[1]
+            MethodNode newMethod = makeMethod(annotatedClass)
+            annotatedClass.addMethod(newMethod)
+        } catch (Exception e) {
+            println 'Failed to apply transform'
+            e.printStackTrace()
+        }
     }
 
     MethodNode makeMethod(ClassNode source) {
-        def ast = new AstBuilder().buildFromString(CompilePhase.INSTRUCTION_SELECTION, false,
-                "def added() { println 'Added' }"
+        def ast = new AstBuilder().buildFromString(CompilePhase.INSTRUCTION_SELECTION, false, '''
+            def added() {
+                println new org.apache.commons.math3.analysis.function.Abs().value(-3.0)
+                println 'Added'
+            }
+'''
         )
         return (MethodNode) ast[1].methods.find { it.name == 'added' }
     }
